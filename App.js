@@ -1,9 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 
-import { createStackNavigator } from '@react-navigation/stack';
+
 import { NavigationContainer } from '@react-navigation/native';
-const Stack = createStackNavigator();
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+const Tab = createBottomTabNavigator();
 
 // my page
 import Main from './Pages/Main/Main';
@@ -16,11 +17,11 @@ export default function App() {
     <>
       <StatusBar style="auto" />
       <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="Main" component={Main} />
-          <Stack.Screen name="CalendarComponent" component={CalendarComponent} />
-          <Stack.Screen name="Todo" component={Todo} />
-        </Stack.Navigator>
+        <Tap.Navigator>
+          <Tap.Screen name="Main" component={Main} />
+          <Tap.Screen name="CalendarComponent" component={CalendarComponent} />
+          <Tap.Screen name="Todo" component={Todo} />
+        </Tap.Navigator>
       </NavigationContainer>
       
     </>
