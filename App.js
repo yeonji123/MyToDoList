@@ -5,6 +5,11 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 const Stack = createStackNavigator();
 
+// my page
+import Main from './Pages/Main/Main';
+import Todo from './Pages/Function/Todo';
+import CalendarComponent from './Pages/Function/CalendarComponent';
+
 
 export default function App() {
   return (
@@ -12,7 +17,9 @@ export default function App() {
       <StatusBar style="auto" />
       <NavigationContainer>
         <Stack.Navigator>
-          {/* <Stack.Screen name="Main2" component={Main2} /> */}
+          <Stack.Screen name="Main" component={Main} />
+          <Stack.Screen name="CalendarComponent" component={CalendarComponent} />
+          <Stack.Screen name="Todo" component={Todo} />
         </Stack.Navigator>
       </NavigationContainer>
       
