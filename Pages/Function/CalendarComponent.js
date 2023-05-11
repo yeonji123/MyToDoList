@@ -1,8 +1,17 @@
 
 import { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, Button, Platform } from 'react-native';
+import {
+    StyleSheet,
+    View,
+    Text,
+    Button,
+    Platform
+} from 'react-native';
 // npm i react-native-calendars
-import { Calendar, LocaleConfig } from 'react-native-calendars';
+import {
+    Calendar, 
+    LocaleConfig
+} from 'react-native-calendars';
 
 
 
