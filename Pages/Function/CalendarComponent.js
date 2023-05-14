@@ -1,11 +1,9 @@
 
 import { useState, useEffect } from 'react';
 import {
-    StyleSheet,
-    View,
-    Text,
-    Button,
-    Platform
+    StyleSheet, 
+    View, 
+    Text, 
 } from 'react-native';
 // npm i react-native-calendars
 import {
