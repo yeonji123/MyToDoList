@@ -11,9 +11,9 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 const Tab = createBottomTabNavigator();
 
 // my page
-import Main from './Pages/Main/Main';
-import Todo from './Pages/Function/Todo';
-import CalendarComponent from './Pages/Function/CalendarComponent';
+import Main from './Components/Main';
+import Todo from './Components/Todo';
+import CalendarComponent from './Components/CalendarComponent';
 
 
 export default function App() {
@@ -21,11 +21,11 @@ export default function App() {
     <>
       <StatusBar style="auto" />
       <NavigationContainer>
-        <Tap.Navigator>
-          <Tap.Screen name="Main" component={Main} />
-          <Tap.Screen name="CalendarComponent" component={CalendarComponent} />
-          <Tap.Screen name="Todo" component={Todo} />
-        </Tap.Navigator>
+        <Tab.Navigator>
+          <Tab.Screen name="CalendarComponent" component={CalendarComponent} />
+          <Tab.Screen name="Main" component={Main} />
+          <Tab.Screen name="Todo" component={Todo} />
+        </Tab.Navigator>
       </NavigationContainer>
       
     </>
