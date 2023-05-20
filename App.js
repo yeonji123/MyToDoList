@@ -23,9 +23,7 @@ export default function App() {
     <>
       <StatusBar style="auto" />
       <NavigationContainer>
-        <Tab.Navigator
-
-        >
+        <Tab.Navigator initialRouteName='Main'>
           <Tab.Screen name="Calendar" component={Calendar}
             options={{
               headerRight: () => <Menu />
