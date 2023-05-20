@@ -9,7 +9,8 @@ import {
 import { db } from '../firbaseConfig';
 import { collection, getDocs } from 'firebase/firestore';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
-import Progressbar from './Progressbar';
+// npm i react-native-progress
+import * as Progress from 'react-native-progress';
 
 // 키보드가 가리는 문제 때문에 아마 아이폰에만 있을 듯?
 const { StatusBarManager } = NativeModules
@@ -80,9 +81,8 @@ const Main = (props) => {
                     
                 <View style={styles.midView}>
                     <Text style={{fontSize:35, fontWeight:'bold', textAlign:'center'}}>MyToDoList</Text>
-                    <Progressbar value={50} total={100}></Progressbar>
-
-
+                    <Progress.Bar progress={0.5} width={200} borderWidth={4} borderColor='orange' height={15} />
+                    <Text>해결한일 / 전체 할일</Text>
 
                     <Button title='Todo' onPress={() => (props.navigation.navigate("Todo"))}></Button>
                     <Button title='CalendarComponent' onPress={() => (props.navigation.navigate("CalendarComponent"))}></Button>
@@ -138,6 +138,7 @@ const styles = StyleSheet.create({
         height: Dimensions.get('window').height * 0.5,
         width: Dimensions.get('window').width,
         backgroundColor: 'red',
+        alignItems: 'center',
     },
     bottomView: {
         height: Dimensions.get('window').height * 0.3,
