@@ -8,6 +8,8 @@ import {
 //npx expo install firebase
 import { db } from '../firbaseConfig';
 import { collection, getDocs } from 'firebase/firestore';
+
+
 import { ScrollView, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 // npm i react-native-progress
 import * as Progress from 'react-native-progress';
