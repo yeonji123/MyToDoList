@@ -1,10 +1,8 @@
 import { useState, useEffect } from 'react';
 import {
-    View, Button, StyleSheet, 
-    Dimensions, Text, TextInput,
-    TouchableOpacity, Keyboard, 
-    KeyboardAvoidingView, Platform, 
-    NativeModules,Modal
+    View, Button, StyleSheet, Dimensions, Text, TextInput,
+    TouchableOpacity, Keyboard, KeyboardAvoidingView, Platform, NativeModules,
+    Modal
 } from 'react-native';
 //fire store
 //npx expo install firebase

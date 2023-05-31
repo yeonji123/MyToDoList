@@ -1,18 +1,15 @@
-// npm i @react-navigation/bottom-tabs
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
+import TabBarIcon from './TabBarIcon'
 import Main from '../Screen/Main'
-import CalendarPage from '../Screen/Calendarpage'
-import ChatGPT from '../Screen/ChatGPT'
-import Memo from '../Screen/Memo'
-
-import TabBarIcon from '../Components/TabbarIcon'
-
+import CalendarComponent from '../Screen/CalendarComponent'
 
 const Tab = createBottomTabNavigator();
 
+
+
 const BottomTabNavigator = () => {
-  return(
+  return (
     <Tab.Navigator
       tabBarOptions={{
         activeBackgroundColor: 'skyblue',
@@ -30,10 +27,9 @@ const BottomTabNavigator = () => {
           )
         })}
     >
+      <Tab.Screen name="" component={InfoStackNavigator} />
       <Tab.Screen name="Main" component={Main} />
-      <Tab.Screen name="Calendar" component={CalendarPage} />
-      <Tab.Screen name="ChatGPT" component={ChatGPT} />
-      <Tab.Screen name="Memo" component={Memo} />
+      <Tab.Screen name="Calendar" component={CalendarComponent} />
     </Tab.Navigator>
   );
 };
