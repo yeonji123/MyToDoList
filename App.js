@@ -7,20 +7,15 @@ import {
 
 
 import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-const Tab = createBottomTabNavigator();
 
 import DrawerNavigator from './Components/DrawerNavigator'
 
 export default function App() {
   return (
-    <>
-      <StatusBar style="auto" />
       <NavigationContainer>
         <DrawerNavigator/>
       </NavigationContainer>
 
-    </>
   );
 }
 
