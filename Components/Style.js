@@ -44,26 +44,43 @@ const style = StyleSheet.create({
         alignItems: 'center',
     },
     middleView:{
-        // width: Dimensions.get('window').width, 
-        // height: Dimensions.get('window').height * 0.67,
+        width: Dimensions.get('window').width, 
+        height: Dimensions.get('window').height * 0.67,
         padding: 10,
         justifyContent: 'center',
         alignItems: 'center',
         textAlign: 'center',
     },
+    totalcheck:{
+        width: '95%',
+        height: '100%',
+        backgroundColor:'#F4F4F4',
+        borderRadius: 10,
+    },
     progressView:{
+        width: '100%',
+        height: '20%',
+        padding:8,
         alignItems: 'center',
+        backgroundColor:'yellow'
     },
     inputView: {
+        width: '100%',
+        height: '13%',
+        padding:5,
         flexDirection: 'row',
+        justifyContent:'center',
+        alignItems:'center',
+        backgroundColor:'orange'
     },
     checklistView: {
-        backgroundColor:'#F4F4F4',
-        width:'95%',
-        height:'100%',
-        borderRadius: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
+        width: '100%',
+        height: '67%',
+        padding:10,
+        flexDirection: 'row',
+        justifyContent:'center',
+        alignItems:'center',
+        backgroundColor:'skyblue'
     },
     
 

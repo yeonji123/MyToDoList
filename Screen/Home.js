@@ -9,7 +9,7 @@ import {
     FlatList,
 } from 'react-native';
 
-import CircularProgress from '../Components/CircularProgress';
+import { AnimatedCircularProgress } from 'react-native-circular-progress';
 
 //fire store
 //npx expo install firebase
@@ -38,14 +38,22 @@ const Home = (props) => {
     //날씨
     const [weather, setWeather] = useState("");
     const [address, setAddress] = useState("");
+
+    // 기본 변수값
     const [id, setId] = useState("");
     const [modal, setModal] = useState(false);
     const [today, setToday] = useState("");
 
+    // 키보드 겹침 오류 수정
     const [statusBarHeight, setStatusBarHeight] = useState(0);
 
+    // todolist
     const [todos, setTodos] = useState([]);
     const [inputText, setInputText] = useState('');
+
+    //progress
+    const [fill, setFill] = useState(50);
+
 
     const handleAddTodo = () => {
         if (inputText) {
@@ -134,46 +142,50 @@ const Home = (props) => {
                     </View>
                 </View>
             </View>
-            
-            
-            
-            <CircularProgress size={150} progress={0.6} strokeWidth={8} color="blue" />
 
-            
+
             <View style={styles.middleView}>
-                
-                <View style={styles.progressView}>
-                    
+                <View style={styles.totalcheck}>
+                    <View style={styles.progressView}>
+                        <AnimatedCircularProgress
+                            size={80}
+                            width={10}
+                            fill={fill}
+                            tintColor="#00e0ff"
+                            onAnimationComplete={() => {
+                                setFill(100)
+                                console.log('onAnimationComplete')
+                            }}
+                            backgroundColor="#3d5875" 
+                        >
+                            {
+                                (fill) => (
+                                    <Text>
+                                        {fill} %
+                                    </Text>
+                                )
+                            }
+                        </AnimatedCircularProgress>
+                    </View>
 
-                </View>
+
+                    <View style={styles.inputView}>
+                        <TextInput
+                            style={{ width: 100, height: 30, borderWidth: 1, padding: 8 }}
+                            placeholder="Enter a task"
+                            value={inputText}
+                            onChangeText={setInputText}
+                        />
+                        <Button title="Add" onPress={handleAddTodo} />
+                    </View>
 
 
-                <View style={styles.inputView}>
-                    <TextInput
-                        style={{ width:100, height:30, borderWidth: 1, padding: 8 }}
-                        placeholder="Enter a task"
-                        value={inputText}
-                        onChangeText={setInputText}
-                    />
-                    <Button title="Add" onPress={handleAddTodo} />
-                </View>
+                    <View style={styles.checklistView}>
 
-
-                <View style={styles.checklistView}>
-
+                    </View>
                 </View>
             </View>
 
-
-
-
-
-
-
-
-
-
-            
 
             <FlatList
                 data={todos}
