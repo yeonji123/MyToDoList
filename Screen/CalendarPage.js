@@ -2,7 +2,9 @@
 import { useState, useEffect } from 'react';
 import {
     StyleSheet, View, Text,
+    LogBox,
 } from 'react-native';
+LogBox.ignoreLogs(['Warning: ...']);
 // npm i react-native-calendars
 import {
     Calendar,

@@ -10,12 +10,18 @@ import { NavigationContainer } from '@react-navigation/native';
 
 import DrawerNavigator from './Components/DrawerNavigator'
 
+import { LogBox } from 'react-native';
+LogBox.ignoreLogs(['Warning: ...']);
+
+
 export default function App() {
   return (
+    <>
+      <StatusBar style="auto" />
       <NavigationContainer>
-        <DrawerNavigator/>
+        <DrawerNavigator />
       </NavigationContainer>
-
+    </>
   );
 }
 

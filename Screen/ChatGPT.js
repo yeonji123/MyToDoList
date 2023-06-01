@@ -1,8 +1,8 @@
 import React from 'react';
 import {
-    View,
-}
-from 'react-native';
+    View,LogBox,
+} from 'react-native';
+LogBox.ignoreLogs(['Warning: ...']);
 
 
 

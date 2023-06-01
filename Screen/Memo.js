@@ -1,8 +1,9 @@
 import React from 'react';
 import {
-    View,
-}
+    View, LogBox,
+} 
 from 'react-native';
+LogBox.ignoreLogs(['Warning: ...']);
 
 
 const Memo = () => {

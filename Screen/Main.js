@@ -1,13 +1,17 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect,  } from 'react';
+
 import {
     View, Button, StyleSheet, Dimensions, Text, TextInput,
     TouchableOpacity, Keyboard, KeyboardAvoidingView, Platform, NativeModules,
-    Modal
+    Modal, LogBox
 } from 'react-native';
+LogBox.ignoreLogs(['Warning: ...']);
+LogBox.ignoreAllLogs();
 //fire store
 //npx expo install firebase
 import { db } from '../firbaseConfig';
 import { collection, getDocs } from 'firebase/firestore';
+
 
 
 import { ScrollView, TouchableWithoutFeedback } from 'react-native-gesture-handler';

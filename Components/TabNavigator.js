@@ -8,6 +8,7 @@ import Memo from '../Screen/Memo';
 
 import TabBarIcon from '../Components/TabBarIcon';
 
+
 const Tab = createBottomTabNavigator();
 
 const BottomTabNavigator = () => {
@@ -24,7 +25,7 @@ const BottomTabNavigator = () => {
       }}
       screenOptions={({ route }) => ({
         tabBarLabel: route.name,
-        tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name={route.name} />,
+        tabBarIcon: ({ focused }) =>(TabBarIcon( focused, route.name )),
       })}
     >
       <Tab.Screen name="Home" component={Home} />
