@@ -15,7 +15,7 @@ import { db } from '../firbaseConfig';
 import { collection, getDocs } from 'firebase/firestore';
 
 
-const CalendarComponent = () => {
+const CalendarPage = () => {
     const [selected, setSelected] = useState(''); // 선택한 날짜
     const [schedule, setSchedule] = useState([]); // 전체 할일
     const [detail, setDetail] = useState(''); // 선택한 날짜의 내 할일
@@ -55,7 +55,7 @@ const CalendarComponent = () => {
     );
 };
 
-export default CalendarComponent;
+export default CalendarPage;
 
 
 const styles = StyleSheet.create({

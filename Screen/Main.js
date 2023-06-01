@@ -13,7 +13,6 @@ import { collection, getDocs } from 'firebase/firestore';
 import { ScrollView, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 // npm i react-native-progress
 import * as Progress from 'react-native-progress';
-import TodoCom from './TodoCom';
 
 
 // 키보드가 가리는 문제 때문에 아마 아이폰에만 있을 듯?
@@ -91,7 +90,7 @@ const Main = (props) => {
                     </View>
                     
                     <ScrollView style={{width:'80%', height:'90%', backgroundColor:'yellow'}}>
-                        <TodoCom />
+                        
                         
                     </ScrollView>
                 </View>
