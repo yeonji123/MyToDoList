@@ -1,32 +1,87 @@
-import { useState, useEffect,  } from 'react';
+import { useState, useEffect, } from 'react';
 
 import {
-    View, Button, StyleSheet, Dimensions, Text, TextInput,
-    TouchableOpacity, Keyboard, KeyboardAvoidingView, Platform, NativeModules,
-    Modal, LogBox
+    View, Text, TextInput,
+    TouchableOpacity, Keyboard,
+    ActivityIndicator, Platform,
+    NativeModules, Image,
+    Modal, LogBox, Button,
+    FlatList,
 } from 'react-native';
-LogBox.ignoreLogs(['Warning: ...']);
-LogBox.ignoreAllLogs();
+
+import CircularProgress from '../Components/CircularProgress';
+
 //fire store
 //npx expo install firebase
 import { db } from '../firbaseConfig';
 import { collection, getDocs } from 'firebase/firestore';
-
-
+// style
+import styles from '../Components/Style'
 
 import { ScrollView, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 // npm i react-native-progress
 import * as Progress from 'react-native-progress';
+import * as Location from 'expo-location';
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
+// warning 무시
+LogBox.ignoreLogs(['Warning: ...']);
+LogBox.ignoreAllLogs();
+
+//날씨 api키
+const API_KEY = "204756a8614d5d5f3d4e6544f1cd8c7d"
 
 // 키보드가 가리는 문제 때문에 아마 아이폰에만 있을 듯?
 const { StatusBarManager } = NativeModules
 
 const Home = (props) => {
-    const [today, setToday] = useState();
-    const [fastAdd, setFastAdd] = useState(''); // 빠르게 todo 추가하기
+    //날씨
+    const [weather, setWeather] = useState("");
+    const [address, setAddress] = useState("");
+    const [id, setId] = useState("");
+    const [modal, setModal] = useState(false);
+    const [today, setToday] = useState("");
+
     const [statusBarHeight, setStatusBarHeight] = useState(0);
-    const [modal,setModal] = useState(false);
+
+    const [todos, setTodos] = useState([]);
+    const [inputText, setInputText] = useState('');
+
+    const handleAddTodo = () => {
+        if (inputText) {
+            setTodos([...todos, { id: Date.now(), text: inputText }]);
+            setInputText('');
+        }
+    };
+
+    const handleDeleteTodo = (id) => {
+        setTodos(todos.filter((todo) => todo.id !== id));
+    };
+
+
+
+
+    useEffect(() => {
+        (async () => {
+
+            //위치 수집 허용하는지 물어보기
+            let { status } = await Location.requestForegroundPermissionsAsync();
+            if (status !== 'granted') {
+                setErrorMsg('Permission to access location was denied');
+                return;
+            }
+
+            // 사용자의 위치에 맞는 날씨 정보 가져오기
+            let location = await Location.getCurrentPositionAsync({});
+            let addresscheck = await Location.reverseGeocodeAsync(location.coords);
+            var addresstotal = addresscheck[0].region + ' ' + addresscheck[0].city // 충청남도 아산시    
+            setAddress(addresstotal)
+            const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${location.coords.latitude.toFixed(5)}&lon=${location.coords.longitude.toFixed(5)}&appid=${API_KEY}&units=metric`);
+            const res = await response.json()
+            // console.log('temp -> ',res)
+            setWeather(res)
+        })();
+    }, [])
 
     useEffect(() => {
         let todayData = new Date();
@@ -53,142 +108,101 @@ const Home = (props) => {
     // }, []);
 
     return (
-
         <View style={styles.container}>
-            <View>
-                <Modal
-                    animationType="slide"
-                    transparent={true}
-                    visible={modal}
-                    onRequestClose={() => {
-                        setModal(!modal);
-                    }}>
-                    <View style={styles.centeredView}>
-                        <View style={styles.modalView}>
-                            <View style={{height:'20%', backgroundColor:'blue', width:'100%'}}>
-                                <Text>dfdf</Text>
-                                <Button title='닫기' onPress={()=>setModal(false)}></Button>
-                            </View>
-                        </View>
-                    </View>
-                </Modal>
+            <View style={styles.topView}>
+                <View style={styles.weatherView}>
+                    <View style={styles.weather}>
+                        {
+                            weather != "" ?
+                                <>
+                                    <View style={styles.temperature}>
 
+                                        <Image style={{ width: 60, height: 60, marginRight: 10 }} source={{ uri: `http://openweathermap.org/img/wn/10d@2x.png` }} />
+
+                                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                            <Text style={{ fontSize: 30 }}>{weather.main.temp.toFixed(0)}</Text>
+                                            <Text style={{ fontSize: 20 }}>  °C </Text>
+                                        </View>
+                                    </View>
+                                    <View style={styles.location}>
+                                        <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{address}</Text>
+                                    </View>
+                                </>
+                                :
+                                <ActivityIndicator />
+                        }
+                    </View>
+                </View>
+            </View>
+            
+            
+            
+            <CircularProgress size={150} progress={0.6} strokeWidth={8} color="blue" />
+
+            
+            <View style={styles.middleView}>
+                
+                <View style={styles.progressView}>
+                    
+
+                </View>
+
+
+                <View style={styles.inputView}>
+                    <TextInput
+                        style={{ width:100, height:30, borderWidth: 1, padding: 8 }}
+                        placeholder="Enter a task"
+                        value={inputText}
+                        onChangeText={setInputText}
+                    />
+                    <Button title="Add" onPress={handleAddTodo} />
+                </View>
+
+
+                <View style={styles.checklistView}>
+
+                </View>
             </View>
 
 
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-
-                <View style={styles.topView}>
-                    <Text style={{ fontSize: 25, marginBottom: 3 }}>{today}</Text>
-                    <View style={styles.detail}>
-                        <Text>   일정</Text>
-                    </View>
-                </View>
-
-                    
-                <View style={styles.midView}>
-                    <View style={{ height: '30%', backgroundColor: 'pink' }}>
-                        <Text style={{ fontSize: 35, fontWeight: 'bold', textAlign: 'center', margin: 15, }}>MyToDoList</Text>
-                        <Progress.Bar progress={0.5} width={200} borderWidth={4} borderColor='orange' height={15} />
-                        <Text>해결한일 / 전체 할일</Text>
-                    </View>
-                    
-                    <ScrollView style={{width:'80%', height:'90%', backgroundColor:'yellow'}}>
-                        
-                        
-                    </ScrollView>
-                </View>
-
-            </TouchableWithoutFeedback>
 
 
-                <View style={styles.bottomView}>
 
 
-                    <TouchableOpacity
-                        style={styles.plus}
-                        onPress={() => {
-                            console.log('plus')
-                            setModal(true)  
-                        }}
-                    >
-                        <Text style={{ fontSize: 50, textAlign: 'center', }}>+</Text>
-                    </TouchableOpacity>
 
-                </View>
+
+
 
             
+
+            <FlatList
+                data={todos}
+                keyExtractor={(item) => item.id.toString()}
+                renderItem={({ item }) => {
+                    console.log(item)
+                    return (
+                        <View
+                            style={{
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                marginBottom: 8,
+                            }}
+                        >
+                            <Text style={{ flex: 1 }}>{item.text}</Text>
+                            <Button
+                                title="Delete"
+                                onPress={() => handleDeleteTodo(item.id)}
+                            />
+                        </View>
+                    )
+                }}
+            />
+
         </View>
+
     );
 };
 
 export default Home;
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-    },
-    topView: {
-        height: Dimensions.get('window').height * 0.2,
-        width: Dimensions.get('window').width,
-        backgroundColor: 'skyblue',
-        padding: 20,
-        justifyContent: 'center',
-        alignItems: 'center',
-        textAlign: 'center',
-    },
-    detail: {
-        height: '80%',
-        width: '100%',
-        backgroundColor: 'red',
-        borderRadius: 10,
-        padding: 10,
-    },
-    midView: {
-        height: Dimensions.get('window').height * 0.5,
-        width: Dimensions.get('window').width,
-        backgroundColor: 'red',
-        alignItems: 'center',
-    },
-    bottomView: {
-        height: Dimensions.get('window').height * 0.3,
-        width: Dimensions.get('window').width,
-        backgroundColor: 'pink',
-        padding: 10,
-        alignItems: 'flex-end',
-    },
-    plus: {
-        width: 60,
-        height: 60,
-        backgroundColor: 'green',
-        borderRadius: 50,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginLeft: 10,
-    },
-    centeredView: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 22,
-    },
-    modalView: {
-        width:Dimensions.get('window').width*0.8,
-        height:Dimensions.get('window').height*0.5,
-        margin: 20,
-        backgroundColor: 'white',
-        borderRadius: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5,
-        padding:20,
-    },
-})
+

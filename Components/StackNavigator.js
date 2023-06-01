@@ -17,11 +17,11 @@ const screenOptionStyle = ({route}) =>
         TabBarIcon(focused, route.name)
       ),
       headerStyle: {
-        backgroundColor: "#d5a599",
+        backgroundColor: "#889FA5",
         height : 100
       },
-      headerTintColor: "white",
-      headerBackTitle: "Back",
+      headerTintColor: "#43655A",
+      headerBackTitle: "#43655A",
       headerTitle:LogoTitle(route.name),
     });
 

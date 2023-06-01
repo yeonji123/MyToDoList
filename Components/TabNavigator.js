@@ -14,10 +14,10 @@ const BottomTabNavigator = () => {
   return (
     <Tab.Navigator
       tabBarOptions={{
-        activeBackgroundColor: '#d3837a',
-        activeTintColor: '#371f18',
-        inactiveBackgroundColor: '#d5a599',
-        inactiveTintColor: '#884c3e',
+        activeBackgroundColor: '#889FA5',
+        activeTintColor: '#43655A',
+        inactiveBackgroundColor: '#DADDE2',
+        inactiveTintColor: '#628281',
         style: {
           backgroundColor: '#d5a599',
           position: 'absolute',
