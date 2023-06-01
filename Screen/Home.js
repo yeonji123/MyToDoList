@@ -22,7 +22,7 @@ import * as Progress from 'react-native-progress';
 // 키보드가 가리는 문제 때문에 아마 아이폰에만 있을 듯?
 const { StatusBarManager } = NativeModules
 
-const Main = (props) => {
+const Home = (props) => {
     const [today, setToday] = useState();
     const [fastAdd, setFastAdd] = useState(''); // 빠르게 todo 추가하기
     const [statusBarHeight, setStatusBarHeight] = useState(0);
@@ -122,7 +122,7 @@ const Main = (props) => {
     );
 };
 
-export default Main;
+export default Home;
 
 const styles = StyleSheet.create({
     container: {

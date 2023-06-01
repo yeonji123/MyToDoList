@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    View, LogBox,
+    View, LogBox, Text,
 } 
 from 'react-native';
 LogBox.ignoreLogs(['Warning: ...']);
@@ -9,7 +9,7 @@ LogBox.ignoreLogs(['Warning: ...']);
 const Memo = () => {
     return (
         <View>
-
+            <Text>Memo</Text>
         </View>
     );
 };

@@ -15,7 +15,7 @@ const CustomDrawerContent = (props) => {
 
         // asyncStorage에 저장된 토큰을 삭제하고 로그인 페이지로 이동
 
-        props.navigation.navigate('Logout')
+        props.navigation.navigate('Login')
 
     }
 
@@ -34,14 +34,11 @@ const CustomDrawerContent = (props) => {
                     />
                 </View>
                 <DrawerItemList {...props} />
-                <DrawerItem label='Main'
-                    onPress={() => props.navigation.navigate('Main')}
-                />
                 <DrawerItem label='Calendar'
                     onPress={() => props.navigation.navigate('Calendar')}
                 />
-                <DrawerItem label='Chatbot'
-                    onPress={() => props.navigation.navigate('Chatbot')}
+                <DrawerItem label='ChatGPT'
+                    onPress={() => props.navigation.navigate('ChatGPT')}
                 />
                 <DrawerItem label='Memo'
                     onPress={() => props.navigation.navigate('Memo')}

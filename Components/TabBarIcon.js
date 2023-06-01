@@ -4,7 +4,7 @@ import { Image } from 'react-native'
 function TabBarIcon  (focused, name)  {
   let iconImagePath;
 
-  if (name==='Main'){
+  if (name==="Home"){
     iconImagePath = require('../assets/Home.png')
   }else if(name==='Calendar'){
     iconImagePath = require('../assets/Calendar.png')

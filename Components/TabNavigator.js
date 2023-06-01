@@ -1,10 +1,9 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 
-import Home from '../Screen/Main';
-import CalendarPage from '../Screen/CalendarPage';
-import ChatGPT from '../Screen/ChatGPT';
-import Memo from '../Screen/Memo';
+
+import { HomeStackNavigator, CalendarStackNavigator, ChatGPTStackNavigator, MemoStackNavigator } from "./StackNavigator";
+
 
 import TabBarIcon from '../Components/TabBarIcon';
 
@@ -15,23 +14,29 @@ const BottomTabNavigator = () => {
   return (
     <Tab.Navigator
       tabBarOptions={{
-        activeBackgroundColor: 'skyblue',
-        activeTintColor: 'blue',
-        inactiveBackgroundColor: 'yellow',
+        activeBackgroundColor: '#d3837a',
+        activeTintColor: '#371f18',
+        inactiveBackgroundColor: '#d5a599',
+        inactiveTintColor: '#884c3e',
         style: {
-          backgroundColor: '#c6cbef',
+          backgroundColor: '#d5a599',
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          right: 0,
         },
         labelPosition: 'beside-icon',
+        tabStyle:{height:85},
       }}
       screenOptions={({ route }) => ({
         tabBarLabel: route.name,
         tabBarIcon: ({ focused }) =>(TabBarIcon( focused, route.name )),
       })}
     >
-      <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Calendar" component={CalendarPage} />
-      <Tab.Screen name="ChatGPT" component={ChatGPT} />
-      <Tab.Screen name="Memo" component={Memo} />
+      <Tab.Screen name="Home" component={HomeStackNavigator} />
+      <Tab.Screen name="Calendar" component={CalendarStackNavigator} />
+      <Tab.Screen name="ChatGPT" component={ChatGPTStackNavigator} />
+      <Tab.Screen name="Memo" component={MemoStackNavigator} />
     </Tab.Navigator>
   );
 };
