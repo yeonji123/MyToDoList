@@ -151,16 +151,20 @@ const Home = (props) => {
                             size={80}
                             width={10}
                             fill={fill}
-                            tintColor="#00e0ff"
+                            tintColor="#43655A"
                             onAnimationComplete={() => {
-                                setFill(100)
+                                
                                 console.log('onAnimationComplete')
                             }}
-                            backgroundColor="#3d5875" 
+                            backgroundColor="#B1BDC5" 
+                            arcSweepAngle={280}
+                            rotation={220}
                         >
                             {
                                 (fill) => (
-                                    <Text>
+                                    <Text
+                                        style={{ fontSize: 15, fontWeight: 'bold',color:'#43655A', marginTop:10 }}
+                                    >
                                         {fill} %
                                     </Text>
                                 )
@@ -171,18 +175,27 @@ const Home = (props) => {
 
                     <View style={styles.inputView}>
                         <TextInput
-                            style={{ width: 100, height: 30, borderWidth: 1, padding: 8 }}
-                            placeholder="Enter a task"
+                            style={styles.addinput}
+                            placeholder="Enter a task..."
                             value={inputText}
                             onChangeText={setInputText}
                         />
-                        <Button title="Add" onPress={handleAddTodo} />
+                        <TouchableOpacity
+                            style={styles.addButton}
+                            onPress={handleAddTodo}
+                        >
+                            <Text style={{ fontSize: 15, fontWeight: 'bold', color: '#43655A' }}>Add</Text>
+                        </TouchableOpacity>
                     </View>
 
 
-                    <View style={styles.checklistView}>
+                    <TouchableWithoutFeedback onPress={Keyboard.dismiss}                    >
+                        <View style={styles.checklistView}>
 
-                    </View>
+
+                        </View>
+                    </TouchableWithoutFeedback>
+
                 </View>
             </View>
 

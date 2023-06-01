@@ -59,7 +59,7 @@ const style = StyleSheet.create({
     },
     progressView:{
         width: '100%',
-        height: '20%',
+        height: '18%',
         padding:8,
         alignItems: 'center',
         backgroundColor:'yellow'
@@ -71,7 +71,23 @@ const style = StyleSheet.create({
         flexDirection: 'row',
         justifyContent:'center',
         alignItems:'center',
-        backgroundColor:'orange'
+    },
+    addinput:{
+        width: '70%', 
+        height: '80%', 
+        borderWidth: 1, 
+        padding: 8, 
+        borderRadius: 10, 
+        borderColor: '#628281'
+    },
+    addButton:{
+        width: '20%',
+        backgroundColor:'#889FA5',
+        height: '75%',
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginLeft: 10,
     },
     checklistView: {
         width: '100%',
