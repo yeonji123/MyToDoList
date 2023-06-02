@@ -6,7 +6,7 @@ import {
     ActivityIndicator, Platform,
     NativeModules, Image,
     Modal, LogBox, Button,
-    FlatList,
+    FlatList, 
 } from 'react-native';
 
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
@@ -23,6 +23,8 @@ import { ScrollView, TouchableWithoutFeedback } from 'react-native-gesture-handl
 import * as Progress from 'react-native-progress';
 import * as Location from 'expo-location';
 import AsyncStorage from '@react-native-async-storage/async-storage'
+// npm i react-native-bouncy-checkbox --save
+import BouncyCheckbox from "react-native-bouncy-checkbox";
 
 // warning 무시
 LogBox.ignoreLogs(['Warning: ...']);
@@ -54,6 +56,8 @@ const Home = (props) => {
     //progress
     const [fill, setFill] = useState(50);
 
+    //check list
+    const [toggleCheckBox, setToggleCheckBox] = useState(false)
 
     const handleAddTodo = () => {
         if (inputText) {
@@ -116,6 +120,7 @@ const Home = (props) => {
     // }, []);
 
     return (
+        
         <View style={styles.container}>
             <View style={styles.topView}>
                 <View style={styles.weatherView}>
@@ -143,7 +148,7 @@ const Home = (props) => {
                 </View>
             </View>
 
-
+            
             <View style={styles.middleView}>
                 <View style={styles.totalcheck}>
                     <View style={styles.progressView}>
@@ -161,13 +166,16 @@ const Home = (props) => {
                             rotation={220}
                         >
                             {
-                                (fill) => (
-                                    <Text
-                                        style={{ fontSize: 15, fontWeight: 'bold',color:'#43655A', marginTop:10 }}
-                                    >
-                                        {fill} %
-                                    </Text>
-                                )
+                                (fill) => {
+                                    fill = fill.toFixed(0)
+                                    return (
+                                        <Text
+                                            style={{ fontSize: 15, fontWeight: 'bold', color: '#43655A', marginTop: 10 }}
+                                        >
+                                            {fill} %
+                                        </Text>
+                                    )
+                                }
                             }
                         </AnimatedCircularProgress>
                     </View>
@@ -189,39 +197,45 @@ const Home = (props) => {
                     </View>
 
 
-                    <TouchableWithoutFeedback onPress={Keyboard.dismiss}                    >
-                        <View style={styles.checklistView}>
+                    <View style={styles.checklistView}>
+                        <FlatList
+                            data={todos}
+                            keyExtractor={(item) => item.id.toString()}
+                            renderItem={({ item }) => {
+                                console.log(item)
+                                return (
+                                    <View
+                                        style={styles.checklist}
+                                    >
+                                        <BouncyCheckbox
+                                            size={25}
+                                            fillColor="red"
+                                            unfillColor="#FFFFFF"
+                                            text="Custom Checkbox"
+                                            iconStyle={{ borderColor: "red" }}
+                                            textStyle={{ fontFamily: "JosefinSans-Regular" }}
+                                            onPress={(isChecked) => { console.log(isChecked)}}
+                                        />
+                                        <Text style={{ flex: 1 }}>{item.text}</Text>
+                                        <TouchableOpacity
+                                            style={styles.deleteButton}
+                                            onPress={() => handleDeleteTodo(item.id)}
+                                        >
+                                            <Image source={{uri:'https://icons-for-free.com/iconfiles/png/512/delete+remove+trash+trash+bin+trash+can+icon-1320073117929397588.png'}} style={{width:30, height:30}}/>
+                                        </TouchableOpacity>
+                                    </View>
+                                )
+                            }}
+                        />
 
+                    </View>
 
-                        </View>
-                    </TouchableWithoutFeedback>
+                    
 
                 </View>
             </View>
 
-
-            <FlatList
-                data={todos}
-                keyExtractor={(item) => item.id.toString()}
-                renderItem={({ item }) => {
-                    console.log(item)
-                    return (
-                        <View
-                            style={{
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                marginBottom: 8,
-                            }}
-                        >
-                            <Text style={{ flex: 1 }}>{item.text}</Text>
-                            <Button
-                                title="Delete"
-                                onPress={() => handleDeleteTodo(item.id)}
-                            />
-                        </View>
-                    )
-                }}
-            />
+            
 
         </View>
 

@@ -59,10 +59,9 @@ const style = StyleSheet.create({
     },
     progressView:{
         width: '100%',
-        height: '18%',
+        height: '16%',
         padding:8,
         alignItems: 'center',
-        backgroundColor:'yellow'
     },
     inputView: {
         width: '100%',
@@ -74,7 +73,7 @@ const style = StyleSheet.create({
     },
     addinput:{
         width: '70%', 
-        height: '80%', 
+        height: '81%', 
         borderWidth: 1, 
         padding: 8, 
         borderRadius: 10, 
@@ -94,11 +93,24 @@ const style = StyleSheet.create({
         height: '67%',
         padding:10,
         flexDirection: 'row',
-        justifyContent:'center',
-        alignItems:'center',
-        backgroundColor:'skyblue'
     },
-    
+    checklist: {
+        width: '100%',
+        height: 40,
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 8,
+        paddingLeft: 10,
+    },
+    deleteButton:{
+        width: '20%',
+        backgroundColor:'#FFE8F7',
+        height: '75%',
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginLeft: 10,
+    }
 
 
     // ------------Home----------   
