@@ -131,7 +131,7 @@ const style = StyleSheet.create({
         width: '100%',
         height: '67%',
         padding:10,
-        flexDirection: 'row',
+        
     },
     checklist: {
         width: '100%',
@@ -141,20 +141,120 @@ const style = StyleSheet.create({
         marginBottom: 8,
         paddingLeft: 10,
     },
-    deleteButton:{
+    modifyButton:{
         width: '20%',
-        backgroundColor:'#FFE8F7',
         height: '75%',
         borderRadius: 10,
         justifyContent: 'center',
         alignItems: 'center',
         marginLeft: 10,
-    }
+    },
 
 
     // ------------Calendar----------   
-
-
+    today:{
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height * 0.05,
+        backgroundColor:'white',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    calendar: {
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height * 0.365,
+        borderBottomWidth: 1,
+        borderBottomColor: '#e0e0e0',
+    },
+    calendarView: {
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height * 0.37,
+        padding:10,
+        justifyContent:'center',
+        alignItems:'center',
+    },
+    calendarData:{
+        width:'95%',
+        height:'95%',
+        borderRadius:10,
+        backgroundColor:'#F4F4F4',
+        
+    },
+    schduledate:{
+        width:'100%',
+        height:'20%',
+        alignItems:'center',
+        justifyContent:'space-between',
+        flexDirection:'row',
+        padding:10,
+    },
+    centeredView: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 22,
+      },
+      modalView: {
+        width : Dimensions.get('window').width*0.9,
+        height : Dimensions.get('window').height * 0.25,
+        margin: 20,
+        backgroundColor: 'white',
+        borderRadius: 10,
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        padding:10,
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+      },
+    modalTop:{
+        width:'100%',
+        height:'20%',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    addschedule: {
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+        backgroundColor: 'white',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    modalMid:{
+        width:'100%',
+        height:'60%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding:5,
+    },
+    addScheduleData:{
+        marginTop:10,
+        width: '80%', 
+        height: '60%', 
+        borderWidth: 1, 
+        padding: 8, 
+        borderRadius: 10, 
+        borderColor: '#628281'
+    },
+    modalBot:{
+        width:'100%',
+        height:'20%',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    addBottomButton:{
+        width: 80,
+        height: '100%',
+        borderRadius: 10,
+        backgroundColor:'#628281',
+        justifyContent: 'center',
+        alignItems: 'center',
+    }
 
     // ------------ChatGPT----------   
 

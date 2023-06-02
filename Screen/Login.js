@@ -55,7 +55,7 @@ const Login = (props) => {
       if (checklogin) {
         Alert.alert('로그인 성공!')
         await AsyncStorage.setItem('id', username)
-        props.navigation.navigate("Home")
+        props.navigation.reset({routes:[{name:"Home"}]})
       }
       else {
         Alert.alert('아이디와 비밀번호를 다시 확인해주세요.')
