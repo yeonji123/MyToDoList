@@ -8,6 +8,45 @@ const style = StyleSheet.create({
         backgroundColor: '#fff',
     },
 
+    // ------------Login----------
+    loginView: {
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height,
+        marginTop:120,
+        alignItems: 'center',
+        textAlign: 'center',
+    },
+    loginInput: {
+        width: '50%',
+        height: 40,
+        paddingHorizontal: 10,
+        borderWidth: 1,
+        borderColor: '#ddd',
+        borderRadius: 5,
+        fontSize: 16,
+        color: '#333',
+        marginBottom: 10,
+    },
+    loginButton: {
+        width: 80,
+        backgroundColor: '#889FA5',
+        height: 30,
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginLeft: 10,
+        marginBottom:10,
+    },
+    joinButton: {
+        width: 80,
+        backgroundColor: '#B1BDC5',
+        height: 30,
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginLeft: 10,
+    },
+
     // ------------Home----------
     topView: {
         width: Dimensions.get('window').width, 
@@ -113,7 +152,14 @@ const style = StyleSheet.create({
     }
 
 
-    // ------------Home----------   
+    // ------------Calendar----------   
+
+
+
+    // ------------ChatGPT----------   
+
+
+    // ------------Memo----------   
 
 })
 export default style

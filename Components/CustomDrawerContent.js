@@ -23,11 +23,11 @@ const CustomDrawerContent = (props) => {
       }
     }, [])
 
-    const logOut =()=>{
+    const logOut = async ()=>{
         console.log('logout')
 
         // asyncStorage에 저장된 토큰을 삭제하고 로그인 페이지로 이동
-
+        await AsyncStorage.removeItem('id')
         props.navigation.navigate('Login')
 
     }
