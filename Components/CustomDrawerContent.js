@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import {
     DrawerContentScrollView,
     DrawerItemList,
@@ -9,6 +10,18 @@ const CustomDrawerContent = (props) => {
     // drawer에서 보여주는 컴포넌트를 알려줌
     // tabNavigator를 가져오기 때문에 다른 컴포넌트들을 DrawerItem으로 선언함
     // drawer 디자인을 위해 냥이 이미지 추가
+
+    const [id, setId] = useState('')
+
+    useEffect(async () => {
+      try {
+        const id = await AsyncStorage.getItem('id')
+        setId(id)
+        
+      } catch (e) {
+        // saving error
+      }
+    }, [])
 
     const logOut =()=>{
         console.log('logout')
@@ -43,9 +56,14 @@ const CustomDrawerContent = (props) => {
                 <DrawerItem label='Memo'
                     onPress={() => props.navigation.navigate('Memo')}
                 />
-                <DrawerItem label='Logout'
-                    onPress={() => logOut()}
-                />
+                {
+                    id ?
+                        <DrawerItem label='Logout'
+                            onPress={() => logOut()}
+                        />
+                        : <DrawerItem label='Login' onPress={() => props.navigation.reset({routes: [{ name: 'Login' }] })} />
+                }
+                
             </View>
         </DrawerContentScrollView>
     )

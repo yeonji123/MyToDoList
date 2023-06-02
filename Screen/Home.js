@@ -6,9 +6,10 @@ import {
     ActivityIndicator, Platform,
     NativeModules, Image,
     Modal, LogBox, Button,
-    FlatList, 
+    FlatList,
 } from 'react-native';
 
+// npm i react-native-circular-progress --save
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 
 //fire store
@@ -17,10 +18,7 @@ import { db } from '../firbaseConfig';
 import { collection, getDocs } from 'firebase/firestore';
 // style
 import styles from '../Components/Style'
-
 import { ScrollView, TouchableWithoutFeedback } from 'react-native-gesture-handler';
-// npm i react-native-progress
-import * as Progress from 'react-native-progress';
 import * as Location from 'expo-location';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 // npm i react-native-bouncy-checkbox --save
@@ -56,18 +54,30 @@ const Home = (props) => {
     //progress
     const [fill, setFill] = useState(50);
 
-    //check list
-    const [toggleCheckBox, setToggleCheckBox] = useState(false)
 
+
+    useEffect(async () => {
+        try {
+            const id = await AsyncStorage.getItem('id')
+            setId(id)
+
+        } catch (e) {
+            // saving error
+        }
+    }, [])
+
+
+    // todolist 추가
     const handleAddTodo = () => {
         if (inputText) {
             setTodos([...todos, { id: Date.now(), text: inputText }]);
             setInputText('');
         }
     };
-
+    // todolist 삭제
     const handleDeleteTodo = (id) => {
         setTodos(todos.filter((todo) => todo.id !== id));
+
     };
 
 
@@ -120,7 +130,7 @@ const Home = (props) => {
     // }, []);
 
     return (
-        
+
         <View style={styles.container}>
             <View style={styles.topView}>
                 <View style={styles.weatherView}>
@@ -148,36 +158,45 @@ const Home = (props) => {
                 </View>
             </View>
 
-            
+
             <View style={styles.middleView}>
                 <View style={styles.totalcheck}>
-                    <View style={styles.progressView}>
-                        <AnimatedCircularProgress
-                            size={80}
-                            width={10}
-                            fill={fill}
-                            tintColor="#43655A"
-                            onAnimationComplete={() => {
-                                
-                                console.log('onAnimationComplete')
-                            }}
-                            backgroundColor="#B1BDC5" 
-                            arcSweepAngle={280}
-                            rotation={220}
-                        >
-                            {
-                                (fill) => {
-                                    fill = fill.toFixed(0)
-                                    return (
-                                        <Text
-                                            style={{ fontSize: 15, fontWeight: 'bold', color: '#43655A', marginTop: 10 }}
-                                        >
-                                            {fill} %
-                                        </Text>
-                                    )
+
+
+                    <View style={styles.progressView}>{
+                        id ?
+                            <AnimatedCircularProgress
+                                size={80}
+                                width={10}
+                                fill={fill}
+                                tintColor="#43655A"
+                                onAnimationComplete={() => {
+
+                                    console.log('onAnimationComplete')
+                                }}
+                                backgroundColor="#B1BDC5"
+                                arcSweepAngle={280}
+                                rotation={220}
+                            >
+                                {
+                                    (fill) => {
+                                        fill = fill.toFixed(0)
+                                        return (
+                                            <Text
+                                                style={{ fontSize: 15, fontWeight: 'bold', color: '#43655A', marginTop: 10 }}
+                                            >
+                                                {fill} %
+                                            </Text>
+                                        )
+                                    }
                                 }
-                            }
-                        </AnimatedCircularProgress>
+                            </AnimatedCircularProgress>
+                            :
+                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                <Text style={{ fontSize: 20, fontWeight: 'bold' }}>로그인을 해주세요</Text>
+                                <Button title='로그인' onPress={() => props.navigation.reset({ routes: [{ name: 'Login' }] })} />
+                            </View>
+                    }
                     </View>
 
 
@@ -203,25 +222,26 @@ const Home = (props) => {
                             keyExtractor={(item) => item.id.toString()}
                             renderItem={({ item }) => {
                                 console.log(item)
+                                console.log('todo', todos)
                                 return (
                                     <View
                                         style={styles.checklist}
                                     >
                                         <BouncyCheckbox
                                             size={25}
-                                            fillColor="red"
+                                            fillColor="#43655A"
                                             unfillColor="#FFFFFF"
-                                            text="Custom Checkbox"
-                                            iconStyle={{ borderColor: "red" }}
+                                            text=""
+                                            iconStyle={{ borderColor: "#43655A" }}
                                             textStyle={{ fontFamily: "JosefinSans-Regular" }}
-                                            onPress={(isChecked) => { console.log(isChecked)}}
+                                            onPress={(isChecked) => { console.log('item :', item, 'ischecked', isChecked) }}
                                         />
                                         <Text style={{ flex: 1 }}>{item.text}</Text>
                                         <TouchableOpacity
                                             style={styles.deleteButton}
                                             onPress={() => handleDeleteTodo(item.id)}
                                         >
-                                            <Image source={{uri:'https://icons-for-free.com/iconfiles/png/512/delete+remove+trash+trash+bin+trash+can+icon-1320073117929397588.png'}} style={{width:30, height:30}}/>
+                                            <Image style={{ width: 20, height: 20 }} source={{ uri: 'https://icons-for-free.com/iconfiles/png/512/delete+remove+trash+trash+bin+trash+can+icon-1320073117929397588.png' }} />
                                         </TouchableOpacity>
                                     </View>
                                 )
@@ -229,15 +249,12 @@ const Home = (props) => {
                         />
 
                     </View>
-
-                    
-
                 </View>
             </View>
 
-            
 
-        </View>
+
+        </View >
 
     );
 };

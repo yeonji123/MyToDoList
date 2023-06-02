@@ -1,5 +1,8 @@
 import { createStackNavigator } from '@react-navigation/stack'
 
+import Login from '../Screen/Login';
+import Join from '../Screen/Join';
+
 import Home from '../Screen/Home';
 import CalendarPage from '../Screen/CalendarPage';
 import ChatGPT from '../Screen/ChatGPT';
@@ -31,6 +34,8 @@ const HomeStackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={screenOptionStyle}>
       <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Join" component={Join} />
     </Stack.Navigator>
   );
 }
