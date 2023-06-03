@@ -19,20 +19,21 @@ const ChatGPT = () => {
     const [response, setResponse] = useState();
     const [chatuser, setChatUser] = useState([]); // 채팅 사용자 데이터 저장
     const [chatgpt, setChatGPT] = useState([]); // 채팅 gpt 데이터 저장
-    const [check, setCheck] = useState(false) // 채팅 gpt 데이터 저장
+    const [first, setFirst] = useState(false)
+    const [check, setCheck] = useState(false) // 로딩
 
 
     useEffect(() => {
         (async () => {
             try {
                 console.log('ChatGPT.js')
-                
+
 
             } catch (error) {
                 console.log('eerror', error.message)
             }
         })();
-       
+
 
 
     }, []);
@@ -40,6 +41,8 @@ const ChatGPT = () => {
 
 
     const generateText = async () => {
+
+
         setText('') // 입력창 초기화
         Keyboard.dismiss()
 
@@ -90,7 +93,7 @@ const ChatGPT = () => {
                 />
                 <TouchableOpacity
                     style={styles.addButton}
-                    onPress={()=>{
+                    onPress={() => {
                         setCheck(true)
                         generateText()
                     }}
@@ -102,16 +105,14 @@ const ChatGPT = () => {
             <KeyboardAvoidingView
                 style={styles.chatView}
                 behavior={"padding"}
-                onPress={() => { Keyboard.dismiss()}}
+                onPress={() => { Keyboard.dismiss() }}
             >
-                
-
                 <ScrollView>
                     {
                         chatuser && chatuser.length == 0 ?
                             <View style={[styles.chatView, { justifyContent: 'center', alignItems: 'center' }]}>
                                 <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Chat GPT에게 물어보세요!</Text>
-                                <Text style={{marginTop:10}}>채팅으로 물어봐유</Text>
+                                <Text style={{ marginTop: 10 }}>채팅으로 물어봐요</Text>
                                 <View style={{ width: 60, height: 60, backgroundColor: 'white', justifyContent: 'center', marginRight: 10 }}>
                                     <Image style={{ width: '100%', height: '100%' }} source={{ uri: 'https://cdn.icon-icons.com/icons2/1234/PNG/512/1492719128-robot_83633.png' }}></Image>
                                 </View>
@@ -144,9 +145,9 @@ const ChatGPT = () => {
 
                         })
                     }
-                    {   
+                    {
                         check ?
-                        <ActivityIndicator />:null
+                            <ActivityIndicator /> : null
                     }
 
                 </ScrollView>
