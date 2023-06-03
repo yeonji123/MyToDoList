@@ -88,7 +88,7 @@ const Home = (props) => {
     useEffect(() => {
         (async () => {
             try {
-                console.log('HomePage')
+                console.log('Home')
 
                 const id = await AsyncStorage.getItem('id')
                 setId(id)
@@ -139,23 +139,27 @@ const Home = (props) => {
             todolist.map((item, idx) => {
                 console.log('item', item)
                 if(item.id.split('_')[0] == id){
-                    idnum+=1
+                    idnum=parseInt(item.id.split('_')[1])
+                    console.log(typeof(idnum))
                 }
             })
-            idnum+=1
+            idnum=idnum+1
             // id
             console.log('db num', idnum)
             var idname = id + '_' + idnum
 
             // set 하기
             setTodolist([...todolist, { id: idname, sentence: inputText, state: false }]) ;
+            console.log('todolist', todolist)
             
             //data add
             await setDoc(doc(db, "CheckList", idname), {
-                id:idname,
+                id: idname,
                 sentence: inputText,
                 state: false,
             });
+            // checkFill()
+            checkFill()
 
             setInputText('');
         }

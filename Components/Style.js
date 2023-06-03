@@ -254,9 +254,48 @@ const style = StyleSheet.create({
         backgroundColor:'#628281',
         justifyContent: 'center',
         alignItems: 'center',
-    }
+    },
 
     // ------------ChatGPT----------   
+    chatView: {
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height * 0.68,
+
+    },
+    chatinput: {
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height * 0.1,
+        justifyContent:'center',
+        alignItems:'center',
+        padding:5,
+        flexDirection: 'row',
+        borderBottomWidth: 1,
+        borderColor:'#628281',
+    },
+    questionView:{
+        padding:10,
+        backgroundColor:'white',
+        justifyContent:'center',
+        alignItems:'flex-end',
+    },
+    question:{
+        backgroundColor:'#DADDE2', 
+        borderRadius:10, 
+        padding:10, 
+    },
+    answerView:{
+        padding:10,
+        justifyContent:'center',
+        alignItems:'flex-start',
+    },
+    answer:{
+        width:'70%',
+        backgroundColor:'#B1BDC5',
+        borderRadius:10, 
+        padding:10,
+    }
+    
+
 
 
     // ------------Memo----------   
