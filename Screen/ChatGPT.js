@@ -4,7 +4,7 @@ import {
     TextInput, TouchableOpacity,
     ScrollView, Image,
     Keyboard, KeyboardAvoidingView,
-    Button,
+    ActivityIndicator
 } from 'react-native';
 LogBox.ignoreLogs(['Warning: ...']);
 
@@ -19,7 +19,9 @@ const ChatGPT = () => {
     const [response, setResponse] = useState();
     const [chatuser, setChatUser] = useState([]); // 채팅 사용자 데이터 저장
     const [chatgpt, setChatGPT] = useState([]); // 채팅 gpt 데이터 저장
-    
+    const [check, setCheck] = useState(false) // 채팅 gpt 데이터 저장
+
+
     useEffect(() => {
         (async () => {
             try {
@@ -66,6 +68,7 @@ const ChatGPT = () => {
         // JSON.stringify(result)
         const result = await response.json()
         const answer = result.choices[0].text // gpt answer
+        setCheck(false) // 로딩
         setResponse(result.choices[0].text) // json 형태로 변환한 후 set
 
         setChatUser([...chatuser, text]) // user question
@@ -87,7 +90,10 @@ const ChatGPT = () => {
                 />
                 <TouchableOpacity
                     style={styles.addButton}
-                    onPress={generateText}
+                    onPress={()=>{
+                        setCheck(true)
+                        generateText()
+                    }}
                 >
                     <Text style={{ fontSize: 15, fontWeight: 'bold', color: '#43655A' }}>Add</Text>
                 </TouchableOpacity>
@@ -138,7 +144,10 @@ const ChatGPT = () => {
 
                         })
                     }
-
+                    {   
+                        check ?
+                        <ActivityIndicator />:null
+                    }
 
                 </ScrollView>
             </KeyboardAvoidingView>
