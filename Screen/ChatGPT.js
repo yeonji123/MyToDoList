@@ -10,8 +10,6 @@ LogBox.ignoreLogs(['Warning: ...']);
 
 import styles from '../Components/Style';
 
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import { set } from 'react-native-reanimated';
 
 
 
@@ -19,7 +17,6 @@ import { set } from 'react-native-reanimated';
 const ChatGPT = () => {
     const [text, setText] = useState();
     const [response, setResponse] = useState();
-    const [date, setDate] = useState(); // 현재 시간 저장
     const [chatuser, setChatUser] = useState([]); // 채팅 사용자 데이터 저장
     const [chatgpt, setChatGPT] = useState([]); // 채팅 gpt 데이터 저장
     
@@ -27,42 +24,7 @@ const ChatGPT = () => {
         (async () => {
             try {
                 console.log('ChatGPT.js')
-                const today = new Date().toLocaleDateString() // 현재 시간 저장
-                setDate(today) // 현재 시간 저장
-
-
-
-                // 디바이스에 저장되어 있는 값 가져오기
-                // 오늘 날짜 가져오기
-                const localDate = await AsyncStorage.getItem('date') // 디바이스에 저장되어 있는 데이터의 날짜
-                console.log('localDate', localDate)
-                console.log('date', today) // 오늘 날짜
-
-
-                // 디바이스에 저장되어 있는 데이터의 날짜와 현재 날짜가 다르면
-                if (localDate==null || localDate != today) { 
-                    // 디바이스에 저장한 데이터의 날짜
-                    // 날짜 저장
-                    await AsyncStorage.setItem('date', localDate)
-
-                    setChatGPT([]) // 빈배열로 저장
-                    setChatUser([]) // 빈배열로 저장
-                }else{
-                    // 만약에 같으면
-                    console.log('동일하면')
-                    const localdata = getArrayFromAsyncStorage('localuserdata')
-                    console.log('localdata', localdata._z) 
-                    if (localdata != null) {
-                        const chating = getArrayFromAsyncStorage('localuserdata')
-                        const chatinggpt = getArrayFromAsyncStorage('localgptdata')
-                        console.log('chating', chating._z)
-                        console.log('chatinggpt', chatinggpt._z)
-                        setChatUser(chating._z)
-                        setChatGPT(chatinggpt._z)
-                    }
-
-                }
-
+                
 
             } catch (error) {
                 console.log('eerror', error.message)
@@ -77,7 +39,7 @@ const ChatGPT = () => {
 
     const generateText = async () => {
         setText('') // 입력창 초기화
-
+        Keyboard.dismiss()
 
         const prompt = text // user question
         const apiKey = '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'
@@ -106,59 +68,12 @@ const ChatGPT = () => {
         const answer = result.choices[0].text // gpt answer
         setResponse(result.choices[0].text) // json 형태로 변환한 후 set
 
+        setChatUser([...chatuser, text]) // user question
+        setChatGPT([...chatgpt, answer]) // gpt answer
 
-        // 로컬에 저장할거임
-        console.log('text',text)
-        console.log('ans', answer)
-        console.log('chatuser', chatuser)
-        console.log('chatgpt', chatgpt)
-
-        if (chatuser == null) {
-            console.log('null check chatuser')
-            setChatUser(text)
-        } else {
-            setChatUser([...chatuser, text]) // user question
-        }
-        if (chatgpt == null) {
-            setChatGPT(answer)
-        } else {
-            setChatGPT([...chatgpt, answer]) // gpt answer
-        }
-
-        // 디바이스에 저장
-        saveArrayToAsyncStorage('localuserdata', chatuser)
-        saveArrayToAsyncStorage('localgptdata', chatgpt)
 
     }
 
-    // 배열을 AsyncStorage에 저장하는 함수
-    const saveArrayToAsyncStorage = async (key, array) => {
-        try {
-            const serializedArray = JSON.stringify(array);
-            await AsyncStorage.setItem(key, serializedArray);
-            console.log('Array saved to AsyncStorage.');
-        } catch (error) {
-            console.error('Error saving array to AsyncStorage:', error);
-        }
-    };
-
-    // AsyncStorage에서 배열을 가져오는 함수
-    const getArrayFromAsyncStorage = async (key) => {
-        try {
-            const serializedArray = await AsyncStorage.getItem(key);
-            console.log('serializedArray', serializedArray)
-            if (serializedArray !== null) {
-                const array = JSON.parse(serializedArray);
-                // console.log('Array retrieved from AsyncStorage:', array);
-                return array;
-            }else{
-                return array
-            }
-        } catch (error) {
-            console.error('Error retrieving array from AsyncStorage:', error);
-        }
-        return [];
-    };
 
     return (
         <View style={styles.container}>
@@ -181,11 +96,9 @@ const ChatGPT = () => {
             <KeyboardAvoidingView
                 style={styles.chatView}
                 behavior={"padding"}
-                onPress={() => {
-                    
-                    Keyboard.dismiss()}}
+                onPress={() => { Keyboard.dismiss()}}
             >
-                <Button title='test' onPress={()=>getArrayFromAsyncStorage('localuserdata')}/>
+                
 
                 <ScrollView>
                     {
@@ -199,7 +112,7 @@ const ChatGPT = () => {
                             </View> :
                             null
                     }
-                    {/* {
+                    {
                         chatuser?.map((item, idx) => {
                             return (
                                 <>
@@ -224,7 +137,7 @@ const ChatGPT = () => {
                             )
 
                         })
-                    } */}
+                    }
 
 
                 </ScrollView>
