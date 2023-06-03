@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 
 
-import { HomeStackNavigator, CalendarStackNavigator, ChatGPTStackNavigator, MemoStackNavigator } from "./StackNavigator";
+import { HomeStackNavigator, CalendarStackNavigator, ChatGPTStackNavigator } from "./StackNavigator";
 
 
 import TabBarIcon from '../Components/TabBarIcon';
@@ -36,7 +36,6 @@ const BottomTabNavigator = () => {
       <Tab.Screen name="Home" component={HomeStackNavigator} />
       <Tab.Screen name="Calendar" component={CalendarStackNavigator} />
       <Tab.Screen name="ChatGPT" component={ChatGPTStackNavigator} />
-      <Tab.Screen name="Memo" component={MemoStackNavigator} />
     </Tab.Navigator>
   );
 };

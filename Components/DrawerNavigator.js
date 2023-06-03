@@ -14,11 +14,11 @@ const DrawerNavigator = () => {
     <Drawer.Navigator
       drawerPosition='right'
       drawerStyle={{
-        backgroundColor: 'skyblue',
+        backgroundColor: '#628281',
         width: 200,
       }}
       drawerContentOptions={{
-        activeTintColor: 'blue',
+        activeTintColor: '#628281',
         activeBackgroundColor: 'white'
       }}
       drawerContent={props => <CustomDrawerContent {...props} />} // drawer content : drawer에 보여지는 컴포넌트들

@@ -10,9 +10,7 @@ function TabBarIcon  (focused, name)  {
     iconImagePath = require('../assets/Calendar.png')
   } else if (name==='ChatGPT'){
     iconImagePath = require('../assets/ChatGPT.png')
-  } else if (name==='Memo'){
-    iconImagePath = require('../assets/Memo.png')
-  }
+  } 
 
   return (
     <Image

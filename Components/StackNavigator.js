@@ -44,6 +44,8 @@ const CalendarStackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={screenOptionStyle}>
       <Stack.Screen name="Calendar" component={CalendarPage} />
+      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Join" component={Join} />
     </Stack.Navigator>
   );
 }
@@ -52,6 +54,8 @@ const ChatGPTStackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={screenOptionStyle}>
       <Stack.Screen name='ChatGPT' component={ChatGPT} />
+      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Join" component={Join} />
     </Stack.Navigator>
   )
 }
@@ -60,8 +64,10 @@ const MemoStackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={screenOptionStyle}>
       <Stack.Screen name='Memo' component={Memo} />
+      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Join" component={Join} />
     </Stack.Navigator>
   )
 }
 
-export { HomeStackNavigator, CalendarStackNavigator, ChatGPTStackNavigator, MemoStackNavigator };
+export { HomeStackNavigator, CalendarStackNavigator, ChatGPTStackNavigator  };

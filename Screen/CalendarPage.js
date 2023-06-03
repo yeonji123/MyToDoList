@@ -42,7 +42,9 @@ const CalendarPage = () => {
     useEffect(() => {
         (async () => {
             try {
+                console.log('CalendarPage.js')
                 const id=await AsyncStorage.getItem('id')
+                console.log('id--> ',id)
                 setId(id)
                 
                 var n =0
@@ -55,7 +57,7 @@ const CalendarPage = () => {
                         n+=1
                     }   
                 })
-                setNum(n+1) // 마지막 값 추가할때 필요
+                setNum(n+1) // 마지막 값 추가할 때 필요
 
             } catch (error) {
                 console.log('eerror', error.message)
@@ -65,15 +67,16 @@ const CalendarPage = () => {
 
     // DB에 있는 값 데이터 정제하기
     const markedDates = schedule.reduce((acc, current) => {
+        console.log('schedule', schedule)
         // format에 맞춰서 데이터 저장해두기
-        acc[current.dataString] = {marked: true, text:current.sentence}
-        return acc;
+        // id와 동일하면
+        console.log('current', current.id)
+        if (current.id.split('_')[0] == id){
+            acc[current.dataString] = {marked: true, text:current.sentence}
+            return acc;
+        }
       }, {});
 
- 
-
-
-    // 달력에 보일 
     const markedSelectedDates = {
         ...markedDates,
         [selected]: {
@@ -81,6 +84,8 @@ const CalendarPage = () => {
             marked: markedDates[selected]?.marked,
         }
     }
+
+ 
 
 
     const addScheduleData = async (inputText, selected) => {
@@ -226,13 +231,16 @@ const CalendarPage = () => {
                         <View style={{ width: 40, height: 40 }}></View>
                         {
                             selected ?
-                                <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{selected}</Text> :
+                                <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{selected}</Text> 
+                                :
                                 <Text>날짜를 선택해주세요</Text>
+
                         }
 
 
                         <TouchableOpacity 
                             style={styles.addschedule}
+                            disabled={!selected}
                             onPress={() => {
                                 console.log('modal')
                                 setModalVisible(!modalVisible)
@@ -245,7 +253,17 @@ const CalendarPage = () => {
                     <View style={{width:'100%', height:'85%', padding:10}}>
                     <ScrollView>
                             {
+                                !id ?
+
+                                    <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                        <Text> 로그인/회원가입해주세요</Text>
+                                    </View>
+                                    : null
+                            }
+                        
+                            {
                                 selected && schedule?.map((item, idx) => {
+                                    console.log(item, item)
                                     if (item.id.split('_')[0] == id && item.dataString == selected ){
                                         return (
                                             <TouchableOpacity
