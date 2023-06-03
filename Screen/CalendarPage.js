@@ -104,9 +104,9 @@ const CalendarPage = () => {
     const addScheduleData = async (inputText, selected) => {
         try {
             console.log('addScheduleData')
+
             if (inputText) {
                 const idname = id + "_" + num
-
                 //data add
                 await setDoc(doc(db, "Calendar", idname), {
                     id: idname,
@@ -115,7 +115,7 @@ const CalendarPage = () => {
                     dataString: selected,
                 });
 
-                
+                setInputText('')
                 // setSchedule([...schedule, { dataString: selected, sentence: inputText }])
                 setSchedule([...schedule, { dataString: selected, sentence: inputText, id:idname, marked:true }])
             }
