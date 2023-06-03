@@ -24,7 +24,6 @@ const screenOptionStyle = ({route}) =>
         height : 100
       },
       headerTintColor: "#43655A",
-      headerBackTitle: "#43655A",
       headerTitle:LogoTitle(route.name),
     });
 

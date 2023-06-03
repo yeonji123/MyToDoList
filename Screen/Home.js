@@ -40,6 +40,7 @@ const Home = (props) => {
     //날씨
     const [weather, setWeather] = useState("");
     const [address, setAddress] = useState("");
+    const [icon, seticon] = useState("");
 
     // 기본 변수값
     const [id, setId] = useState("");
@@ -81,6 +82,8 @@ const Home = (props) => {
             const res = await response.json()
             // console.log('temp -> ',res)
             setWeather(res)
+            iconsplit = res.weather[0].icon.split('n')
+            seticon(iconsplit[0])
         })();
     }, [])
 
@@ -172,6 +175,7 @@ const Home = (props) => {
                 
         // DB에서 삭제
         await deleteDoc(doc(db, "CheckList", id))
+        checkFill()
     };
 
 
@@ -230,7 +234,7 @@ const Home = (props) => {
                                 <>
                                     <View style={styles.temperature}>
 
-                                        <Image style={{ width: 60, height: 60, marginRight: 10 }} source={{ uri: `http://openweathermap.org/img/wn/10d@2x.png` }} />
+                                        <Image style={{ width: 60, height: 60, marginRight: 10 }} source={{ uri: `http://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png` }} />
 
                                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                             <Text style={{ fontSize: 30 }}>{weather.main.temp.toFixed(0)}</Text>

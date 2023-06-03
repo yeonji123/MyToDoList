@@ -39,6 +39,8 @@ const CalendarPage = () => {
     // 내용 수정
     const [editingIndex, setEditingIndex] = useState(-1);
     const [editedschedule, setEditedschedule] = useState(''); // 수정한 할일
+
+
     useEffect(() => {
         (async () => {
             try {
@@ -65,17 +67,28 @@ const CalendarPage = () => {
         })();
     }, []);
 
+
+    const readDB = async () => {
+        try {
+            console.log('readDB')
+            const data = await getDocs(collection(db, "Calendar")) // Station이라는 테이블 명
+            setSchedule(data.docs.map(doc => ({ ...doc.data(), id: doc.id }))) // map을 돌려서 데이터를 복사하여 붙여놓고, id를 추가해줌
+        } catch (error) {
+            console.log('eerror', error.message)
+        }
+    }
+
     // DB에 있는 값 데이터 정제하기
     const markedDates = schedule.reduce((acc, current) => {
         console.log('schedule', schedule)
         // format에 맞춰서 데이터 저장해두기
         // id와 동일하면
         console.log('current', current.id)
-        if (current.id.split('_')[0] == id){
-            acc[current.dataString] = {marked: true, text:current.sentence}
+        if (current.id.split('_')[0] == id) {
+            acc[current.dataString] = { marked: true, text: current.sentence }
             return acc;
         }
-      }, {});
+    }, {});
 
     const markedSelectedDates = {
         ...markedDates,
@@ -102,7 +115,9 @@ const CalendarPage = () => {
                     dataString: selected,
                 });
 
-                setSchedule([...schedule, { dataString: selected, sentence: inputText }])
+                
+                // setSchedule([...schedule, { dataString: selected, sentence: inputText }])
+                setSchedule([...schedule, { dataString: selected, sentence: inputText, id:idname, marked:true }])
             }
             
         } catch (error) {
@@ -222,7 +237,7 @@ const CalendarPage = () => {
                     console.log(day)
                     setSelected(day.dateString);
                 }}
-                markedDates={markedSelectedDates}
+                markedDates={schedule.length>0? markedSelectedDates : null}
                 
             />
             <View style={styles.calendarView}>
@@ -263,7 +278,7 @@ const CalendarPage = () => {
                         
                             {
                                 selected && schedule?.map((item, idx) => {
-                                    console.log(item, item)
+                                    console.log(item)
                                     if (item.id.split('_')[0] == id && item.dataString == selected ){
                                         return (
                                             <TouchableOpacity

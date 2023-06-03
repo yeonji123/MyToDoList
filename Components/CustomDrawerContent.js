@@ -33,7 +33,7 @@ const CustomDrawerContent = (props) => {
 
         // asyncStorage에 저장된 토큰을 삭제하고 로그인 페이지로 이동
         await AsyncStorage.removeItem('id')
-        props.navigation.navigate('Login')
+        props.navigation.reset({routes: [{ name: 'Login' }] })
 
     }
 
